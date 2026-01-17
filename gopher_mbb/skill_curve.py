@@ -152,6 +152,38 @@ def create_player_plot(player_name, df):
 # Player analysis page
 def player_analysis_page(player_dfs):
     st.title("🏀 Player Skill Curve Analysis")
+
+    if "show_skill_curve_help" not in st.session_state:
+        st.session_state.show_skill_curve_help = False
+
+    if st.button("📈 What is a Skill Curve?"):
+        st.session_state.show_skill_curve_help = not st.session_state.show_skill_curve_help
+
+    if st.session_state.show_skill_curve_help:
+        st.info("""
+        **What is a Skill Curve?**
+
+        A skill curve models how a player's efficiency (ORtg) changes as their offensive role changes.
+
+        Instead of assuming efficiency is constant, we estimate a curve using historical game data that captures three realities:
+
+        **1. Diminishing Returns**  
+        As a player takes on more possessions, defenses adjust. Shot quality declines and fatigue increases.
+
+        **2. Role Optimization**  
+        Every player has an optimal usage range where they are most efficient.  
+        Below this range, they are underutilized. Above it, efficiency drops.
+
+        **3. Lineup-Level Impact**  
+        A team’s offensive rating is the weighted sum of individual efficiencies at their assigned roles.
+
+        This model allows us to simulate coaching decisions:
+
+        > “What happens if we give Player A 6% more possessions and Player B 6% fewer?”
+
+        The optimizer then finds the possession distribution that maximizes total team ORtg.
+        """)
+
     st.markdown("---")
     
     # Sidebar
@@ -711,3 +743,4 @@ def main():
 if __name__ == "__main__":
 
     main()
+
