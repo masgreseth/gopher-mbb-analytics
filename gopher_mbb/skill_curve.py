@@ -26,40 +26,6 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# # Load data function
-# @st.cache_data
-# def load_data():
-#     box_scores = []
-#     folder_path = 'box_scores'
-    
-#     for filename in os.listdir(folder_path):
-#         if filename.endswith('.csv'):
-#             file_path = os.path.join(folder_path, filename)
-#             df = pd.read_csv(file_path)
-#             box_scores.append(df)
-    
-#     player_data = {}
-    
-#     for df in box_scores:
-#         df = df[df['Name'] != 'TOTAL']
-        
-#         for _, row in df.iterrows():
-#             player_name = row['Name']
-            
-#             if player_name not in player_data:
-#                 player_data[player_name] = []
-            
-#             if pd.notna(row['ORtg']):
-#                 player_data[player_name].append({
-#                     'ORtg': row['ORtg'],
-#                     '%Ps': row['%Ps']
-#                 })
-    
-#     player_dfs = {}
-#     for player_name, data in player_data.items():
-#         player_dfs[player_name] = pd.DataFrame(data)
-    
-#     return player_dfs
 
 # Get trend line coefficients for a player
 def get_trend_line(df):
@@ -92,7 +58,7 @@ def calculate_team_ortg(player_trends, ps_allocations):
 @st.cache_data
 def load_data():
     box_scores = []
-    folder_path = 'box_scores'
+    folder_path = 'gopher_mbb/box_scores'
     
     # Get all CSV files with their filenames
     csv_files = sorted([f for f in os.listdir(folder_path) if f.endswith('.csv')])
@@ -743,4 +709,5 @@ def main():
         team_optimizer_page(player_dfs)
 
 if __name__ == "__main__":
+
     main()
