@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 from scipy.optimize import minimize
-
+ 
 # Set page config
 st.set_page_config(
     page_title="Basketball Player Analytics",
@@ -743,4 +743,5 @@ def main():
 if __name__ == "__main__":
 
     main()
+
 
